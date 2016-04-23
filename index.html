@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>H5视频播放器</title>
+	<link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/video.js/5.8.0/alt/video-js-cdn.min.css">
+	<script type="text/javascript" src="//cdn.bootcss.com/video.js/5.8.0/ie8/videojs-ie8.min.js"></script>
+	<style type="text/css">
+		.video{
+			height: 600px;
+			width: 600px; 
+			margin: 20px auto;
+		}
+	</style>
+</head>
+<body>
+	<div class="video">
+		<video id="my-video" class="video-js" data-setup='{}'>
+  	<!-- <source src="./resource/testflv.flv" type="rtmp/flv"> -->
+    <source src="./resource/let-it-go.mp4" type='video/mp4'>
+
+   <!--  <object id="flash_fallback_1" class="vjs-flash-fallback" width="640" height="264" type="application/x-shockwave-flash"
+        data="http://releases.flowplayer.org/swf/flowplayer-3.2.1.swf">
+        <param name="movie" value="http://releases.flowplayer.org/swf/flowplayer-3.2.1.swf" />
+        <param name="allowfullscreen" value="true" />
+        <param name="flashvars" value='config={"playlist":["http://video-js.zencoder.com/oceans-clip.png", {"url": "http://video-js.zencoder.com/oceans-clip.mp4","autoPlay":false,"autoBuffering":true}]}' />
+        <img src="http://video-js.zencoder.com/oceans-clip.png" width="640" height="264" alt="Poster Image"
+          title="No video playback capabilities." />
+      </object> -->
+    <!-- <source src="MY_VIDEO.webm" type='video/webm'> -->
+    <track kind="captions" src="./resource/subtile.vtt" srclang="en" label="Engish" default/>
+    <p class="vjs-no-js">
+      To view this video please enable JavaScript, and consider upgrading to a web browser that
+      <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+    </p>
+  </video>
+	</div>
+	
+  <script type="text/javascript" src="///cdn.bootcss.com/video.js/5.8.0/video.js"></script>
+  <script type="text/javascript">
+  	videojs.options.flash.swf = "http://union.bokecc.com/flash/player.swf";
+  </script>
+  <script>
+    videojs.addLanguage('es', {
+      "Play": "Juego",
+      "Pause": "Pausa",
+      "Current Time": "Tiempo Actual",
+      "Duration Time": "Tiempo de Duracion",
+      "Remaining Time": "Tiempo Restante",
+      "Stream Type": "Tipo de Transmision",
+      "LIVE": "En Vivo",
+      "Loaded": "Cargado",
+      "Progress": "Progreso",
+      "Fullscreen": "Pantalla Completa",
+      "Non-Fullscreen": "No Pantalla Completa",
+      "Mute": "Mudo",
+      "Unmute": "Activar sonido",
+      "Playback Rate": "Reproduccion Cambio",
+      "Subtitles": "Subtitulos",
+      "subtitles off": "subtitulos fuera",
+      "Captions": "Subtitulos",
+      "captions off": "subtitulos fuera",
+      "Chapters": "Capitulos",
+      "You aborted the video playback": "Ha anulado la reproduccion de video",
+      "A network error caused the video download to fail part-way.": "Un error en la red hizo que la descarga de video falle parte del camino.",
+      "The video could not be loaded, either because the server or network failed or because the format is not supported.": "El video no se puede cargar, ya sea porque el servidor o la red fracasaron o porque el formato no es compatible.",
+      "The video playback was aborted due to a corruption problem or because the video used features your browser did not support.": "La reproduccion de video se ha cancelado debido a un problema de corrupcion o porque el video utilizado cuenta con su navegador no soporta.",
+      "No compatible source was found for this video.": "Ninguna fuente compatible se encontro para este video."
+    });
+  </script>
+  <script type="text/javascript">
+  //var vid = document.getElementById("my-video");
+  	// videojs.options.flash.swf = "http://union.bokecc.com/flash/player.swf";
+  	
+  	window.VIDEOJS_NO_BASE_NAME = true;
+  	var myPlayer = videojs('my-video',{
+  		"controls":true,//控制条显示
+  		"autoplay":true, //自动播放
+  		"preload":"auto", //预加载
+  		"poster" : "./resource/timg.jpg", //视频海报
+  		// "loop" : true,  //循环控制
+  		"width" : 600,
+  		"height" : 500,
+  		//techOrder : ["html","flash","other supported"],
+  		controlBar : {
+  			muteToggle : false,
+  			progressControl : {
+  				keepToolTipsInside : true
+  			}
+  		}
+  	},function(){
+  		console.log('Good to go!');
+  		var myPlayer = this;
+  		var progressed;
+  		progressed = function(options){
+  			this.on('progress',function(e){
+  				console.log(this.bufferedPercent());
+  			});
+  		};
+  		videojs.plugin('progressed',progressed);
+  		myPlayer.progressed();
+  		myPlayer.controlBar.show();
+  		// myPlayer.currentTime(120);
+  		myPlayer.play();
+  		myPlayer.on('ended',function(){
+  			console.log('end');
+  		})
+  	});
+  	
+  	//videojs(myPlayer).dispose();
+  
+  	// videojs.registerComponent('Control',videojs.extents(Component));
+  	// videojs.registerComponent('Button',videojs.extents(videojs.getComponment('Control')));
+  	// videojs.registerComponent('PlayToggle',videojs.extents(videojs.getComponment('Button')));
+  	// myPlayer.addChild('BigPlayButton');
+  </script>
+</body>
+</html>
