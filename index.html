@@ -2,8 +2,6 @@
 <html>
 <head>
 	<title>H5视频播放器</title>
-	<link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/video.js/5.8.0/alt/video-js-cdn.min.css">
-	<script type="text/javascript" src="//cdn.bootcss.com/video.js/5.8.0/ie8/videojs-ie8.min.js"></script>
 	<style type="text/css">
 		.video{
 			height: 600px;
@@ -17,101 +15,138 @@
 		<video id="my-video" class="video-js" data-setup='{}'>
   	<!-- <source src="./resource/testflv.flv" type="rtmp/flv"> -->
     <source src="./resource/let-it-go.mp4" type='video/mp4'>
-
-   <!--  <object id="flash_fallback_1" class="vjs-flash-fallback" width="640" height="264" type="application/x-shockwave-flash"
-        data="http://releases.flowplayer.org/swf/flowplayer-3.2.1.swf">
-        <param name="movie" value="http://releases.flowplayer.org/swf/flowplayer-3.2.1.swf" />
-        <param name="allowfullscreen" value="true" />
-        <param name="flashvars" value='config={"playlist":["http://video-js.zencoder.com/oceans-clip.png", {"url": "http://video-js.zencoder.com/oceans-clip.mp4","autoPlay":false,"autoBuffering":true}]}' />
-        <img src="http://video-js.zencoder.com/oceans-clip.png" width="640" height="264" alt="Poster Image"
-          title="No video playback capabilities." />
-      </object> -->
-    <!-- <source src="MY_VIDEO.webm" type='video/webm'> -->
-    <track kind="captions" src="./resource/subtile.vtt" srclang="en" label="Engish" default/>
+    <track kind="captions" src="./resource/captions.vtt" srclang="en" label="Engish" default/>
+    <!-- <track kind="subtitles" src="./recource/captions.vtt" srclang="en" label="English"></track> -->
     <p class="vjs-no-js">
       To view this video please enable JavaScript, and consider upgrading to a web browser that
       <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
     </p>
   </video>
 	</div>
-	
-  <script type="text/javascript" src="///cdn.bootcss.com/video.js/5.8.0/video.js"></script>
+  <div>
+    <button type="button" id="test">暂停</button>
+    <button type="button" id="test2">播放</button>
+    <button type="button" id="test3">改变资源</button>
+    <button type="button" id="test4">改变播放长度</button>
+    <button type="button" id="test5">定位到某处</button>
+  </div>
+  <script type="text/javascript" src="assets/js/sea.js"></script>
+  <script type="text/javascript" src="assets/js/seajs-css.js"></script>
+  <script type="text/javascript" src="./seajs-config.js"></script>
   <script type="text/javascript">
-  	videojs.options.flash.swf = "http://union.bokecc.com/flash/player.swf";
-  </script>
-  <script>
-    videojs.addLanguage('es', {
-      "Play": "Juego",
-      "Pause": "Pausa",
-      "Current Time": "Tiempo Actual",
-      "Duration Time": "Tiempo de Duracion",
-      "Remaining Time": "Tiempo Restante",
-      "Stream Type": "Tipo de Transmision",
-      "LIVE": "En Vivo",
-      "Loaded": "Cargado",
-      "Progress": "Progreso",
-      "Fullscreen": "Pantalla Completa",
-      "Non-Fullscreen": "No Pantalla Completa",
-      "Mute": "Mudo",
-      "Unmute": "Activar sonido",
-      "Playback Rate": "Reproduccion Cambio",
-      "Subtitles": "Subtitulos",
-      "subtitles off": "subtitulos fuera",
-      "Captions": "Subtitulos",
-      "captions off": "subtitulos fuera",
-      "Chapters": "Capitulos",
-      "You aborted the video playback": "Ha anulado la reproduccion de video",
-      "A network error caused the video download to fail part-way.": "Un error en la red hizo que la descarga de video falle parte del camino.",
-      "The video could not be loaded, either because the server or network failed or because the format is not supported.": "El video no se puede cargar, ya sea porque el servidor o la red fracasaron o porque el formato no es compatible.",
-      "The video playback was aborted due to a corruption problem or because the video used features your browser did not support.": "La reproduccion de video se ha cancelado debido a un problema de corrupcion o porque el video utilizado cuenta con su navegador no soporta.",
-      "No compatible source was found for this video.": "Ninguna fuente compatible se encontro para este video."
-    });
-  </script>
-  <script type="text/javascript">
-  //var vid = document.getElementById("my-video");
-  	// videojs.options.flash.swf = "http://union.bokecc.com/flash/player.swf";
-  	
-  	window.VIDEOJS_NO_BASE_NAME = true;
-  	var myPlayer = videojs('my-video',{
-  		"controls":true,//控制条显示
-  		"autoplay":true, //自动播放
-  		"preload":"auto", //预加载
-  		"poster" : "./resource/timg.jpg", //视频海报
-  		// "loop" : true,  //循环控制
-  		"width" : 600,
-  		"height" : 500,
-  		//techOrder : ["html","flash","other supported"],
-  		controlBar : {
-  			muteToggle : false,
-  			progressControl : {
-  				keepToolTipsInside : true
-  			}
-  		}
-  	},function(){
-  		console.log('Good to go!');
-  		var myPlayer = this;
-  		var progressed;
-  		progressed = function(options){
-  			this.on('progress',function(e){
-  				console.log(this.bufferedPercent());
-  			});
-  		};
-  		videojs.plugin('progressed',progressed);
-  		myPlayer.progressed();
-  		myPlayer.controlBar.show();
-  		// myPlayer.currentTime(120);
-  		myPlayer.play();
-  		myPlayer.on('ended',function(){
-  			console.log('end');
-  		})
-  	});
-  	
-  	//videojs(myPlayer).dispose();
-  
-  	// videojs.registerComponent('Control',videojs.extents(Component));
-  	// videojs.registerComponent('Button',videojs.extents(videojs.getComponment('Control')));
-  	// videojs.registerComponent('PlayToggle',videojs.extents(videojs.getComponment('Button')));
-  	// myPlayer.addChild('BigPlayButton');
+      seajs.use(['video-css','videojs','jquery','videjs-ie8'],function(videocss, videojs, $){
+      videojs.options.flash.swf = "./assets/video-js.swf";
+      //界面汉化
+      videojs.addLanguage("zh-CN",{
+           "Play": "播放",
+           "Pause": "暂停",
+           "Current Time": "当前时间",
+           "Duration Time": "时长",
+           "Remaining Time": "剩余时间",
+           "Stream Type": "媒体流类型",
+           "LIVE": "直播",
+           "Loaded": "加载完毕",
+           "Progress": "进度",
+           "Fullscreen": "全屏",
+           "Non-Fullscreen": "退出全屏",
+           "Mute": "静音",
+           "Unmute": "取消静音",
+           "Playback Rate": "播放码率",
+           "Subtitles": "字幕",
+           "subtitles off": "字幕关闭",
+           "Captions": "内嵌字幕",
+           "captions off": "关闭内嵌字幕",
+           "Engish":"英文字幕",
+           "Chapters": "节目段落",
+           "You aborted the media playback": "视频播放被终止",
+           "A network error caused the media download to fail part-way.": "网络错误导致视频下载中途失败。",
+           "The media could not be loaded, either because the server or network failed or because the format is not supported.": "视频因格式不支持或者服务器或网络的问题无法加载。",
+           "The media playback was aborted due to a corruption problem or because the media used features your browser did not support.": "由于视频文件损坏或是该视频使用了你的浏览器不支持的功能，播放终止。",
+           "No compatible source was found for this media.": "无法找到此视频兼容的源。",
+           "The media is encrypted and we do not have the keys to decrypt it.": "视频已加密，无法解密。"
+      });
+
+      window.VIDEOJS_NO_BASE_NAME = true;
+
+      var myPlayer = videojs('my-video',{
+                      "controls":true,//控制条显示
+                      "autoplay":false, //自动播放
+                      "preload":"auto", //预加载
+                      "poster" : "./resource/timg.jpg", //视频海报
+                        // "loop" : true,  //循环控制
+                      "width" : 600,
+                      "height" : 500,
+                        //techOrder : ["html","flash","other supported"],
+                      controlBar : {
+                          muteToggle : false,
+                          progressControl : {
+                            keepToolTipsInside : true
+                          }
+                      }
+                  },
+                  function(){
+                    console.log('Good to go!');
+                    var myPlayer = this;
+                    var progressed;
+                    progressed = function(options){
+                      this.on('progress',function(e){
+                        console.log(this.bufferedPercent());
+                      });
+                    };
+                    videojs.plugin('progressed',progressed);
+                   // myPlayer.progressed();
+                    // myPlayer.controlBar.show();
+                    // myPlayer.currentTime(120);
+                    // myPlayer.play();
+                    myPlayer.on('ended',function(){
+                      console.log('end');
+                    })
+                  });
+
+        myPlayer.width(800);
+        myPlayer.height(600);
+        $("#test").on('click',function(){
+          myPlayer.pause();
+          myPlayer.playbackRate(2);
+          console.log(myPlayer.paused());
+          console.log(myPlayer.videoWidth());
+          console.log(myPlayer.videoHeight());
+        });
+        $("#test2").on('click',function(){
+          myPlayer.play();
+          //视频时长
+          var duration = myPlayer.duration();
+          console.log(duration);
+          console.log(videojs.formatTime(duration))
+          console.log(myPlayer.paused());
+          console.log(myPlayer.currentSrc());
+          console.log(myPlayer.toJSON());
+          console.log(myPlayer. playbackRate());
+        });
+        $("#test3").on("click",function(){
+          myPlayer.src("./resource/test-video.mp4");
+        });
+        $("#test4").on('click',function(){
+          videojs.createTimeRange(20,30);
+          var time = myPlayer.currentTime();
+          console.log(time);
+
+        });
+        $("#test5").on('clcik',function(){
+            myPlayer.currentTime(40);
+        })
+        
+        //获取版本信息
+       // console.log(videojs.VERSION);
+        //获取配置项
+        //console.log(videojs.options);
+        var player = videojs.getPlayers();
+        console.log(player);
+        console.log(videojs.getComponent())
+        myPlayer.controlBar.show();
+        // myPlayer.error(1);
+
+      })
   </script>
 </body>
 </html>
